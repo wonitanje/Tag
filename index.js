@@ -1,23 +1,26 @@
-const boardSize = 3
+const boardSize = 4
 const cellsAmount = Math.pow(boardSize, 2)
 
 const board = document.querySelector('#board')
+for (let i = 0; i < cellsAmount; i++) {
+  const cell = document.createElement('div')
+  cell.style.width = `calc(${100 / boardSize}% - 4px)`
+  cell.style.height = `calc(${100 / boardSize}% - 4px)`
+  cell.classList.add('item')
+  board.append(cell)
+}
+board.lastChild.classList.add('empty')
 
 function Start() {
-  board.innerHTML = '';
+  const cells = document.querySelectorAll('.item')
   const shuffle = GetShuffle(cellsAmount)
   for (let i = 0; i < cellsAmount; i++) {
-    const cell = document.createElement('div')
-    cell.style.width = `calc(${100 / boardSize}% - 4px)`
-    cell.style.height = `calc(${100 / boardSize}% - 4px)`
-    cell.classList.add('item')
-    if (shuffle[i] > 0) cell.textContent = shuffle[i]
-    else cell.classList.add('empty')
-    board.append(cell)
+    if (shuffle[i] > 0) {
+      cells[i].textContent = shuffle[i]
+      cells[i].classList.remove('empty')
+    } else cells[i].classList.add('empty')
   }
 }
-
-Start()
 
 const items = [...document.querySelectorAll('.item')]
 const notification = document.querySelector('#notification')
@@ -37,14 +40,9 @@ items.forEach(item =>
     items[targetIdx].textContent = ''
     items[targetIdx].classList.add('empty')
 
-    if (victoryState()) notification.textContent = 'Победа'
-
+    if (VictoryState()) notification.textContent = 'Победа'
   })
 )
-
-// reset.addEventListener('click', e => {
-//   Start()
-// })
 
 function GetShuffle(size) {
   const invertions = cells => cells.reduce((invertions, cell, idx) => invertions + cells.slice(idx).filter(el => cell > el).length, 0)
@@ -57,7 +55,7 @@ function GetShuffle(size) {
   return cells
 }
 
-function victoryState() {
+function VictoryState() {
   const finish = [...document.querySelectorAll('.item')].map(item => +item.textContent || cellsAmount).sort((a, b) => a - b)
   const state = items.map(item => +item.textContent || cellsAmount)
   return state.join('') == finish.join('')
