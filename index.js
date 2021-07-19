@@ -1,7 +1,7 @@
 const boardSize = 3
 const cellsAmount = Math.pow(boardSize, 2)
 
-const board = document.querySelector('.board')
+const board = document.querySelector('#board')
 
 function Start() {
   board.innerHTML = '';
@@ -25,7 +25,7 @@ const reset = document.querySelector('#reset')
 
 items.forEach(item =>
   item.addEventListener('click', e => {
-    empty = document.querySelector('.item.empty')
+    const empty = document.querySelector('.item.empty')
     const targetIdx = items.indexOf(e.target)
     const emptyIdx = items.indexOf(empty)
     const avaibleCells = [emptyIdx - 1, emptyIdx + 1, emptyIdx - boardSize, emptyIdx + boardSize]
@@ -42,9 +42,9 @@ items.forEach(item =>
   })
 )
 
-reset.addEventListener('click', e => {
-  Start()
-})
+// reset.addEventListener('click', e => {
+//   Start()
+// })
 
 function GetShuffle(size) {
   const invertions = cells => cells.reduce((invertions, cell, idx) => invertions + cells.slice(idx).filter(el => cell > el).length, 0)

@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Game 15</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,8 +10,12 @@
 <body>
   <div class="container">
     <p id="notification">Пятнашки</p>
-    <div class="board"></div>
-    <div id="reset">Перемешать</div>
+    <div id="board"></div>
+    <div class="center">
+      <button id="reset" onclick="Start()">
+        Перемешать
+      </button>
+    </div>
   </div>
   <script src="index.js"></script>
 </body>
